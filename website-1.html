@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personality Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .answers {
+            margin: 10px 0;
+        }
+        .answers label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .result {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Personality Test</h1>
+        <form id="quizForm">
+            <div class="question" id="question1">
+                <p>1. How do you usually feel in social situations?</p>
+                <div class="answers">
+                    <label><input type="radio" name="q1" value="A"> Energized and outgoing</label>
+                    <label><input type="radio" name="q1" value="B"> Neutral, neither energized nor drained</label>
+                    <label><input type="radio" name="q1" value="C"> Tired and prefer to be alone</label>
+                </div>
+            </div>
+
+            <div class="question" id="question2">
+                <p>2. When making decisions, you prefer:</p>
+                <div class="answers">
+                    <label><input type="radio" name="q2" value="A"> Logic and reasoning</label>
+                    <label><input type="radio" name="q2" value="B"> My feelings and personal values</label>
+                    <label><input type="radio" name="q2" value="C"> I tend to avoid making decisions</label>
+                </div>
+            </div>
+
+            <div class="question" id="question3">
+                <p>3. How do you prefer to spend your free time?</p>
+                <div class="answers">
+                    <label><input type="radio" name="q3" value="A"> Socializing with friends and family</label>
+                    <label><input type="radio" name="q3" value="B"> Doing hobbies or creative activities</label>
+                    <label><input type="radio" name="q3" value="C"> Being by myself to recharge</label>
+                </div>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="submitQuiz()">Submit</button>
+        </form>
+
+        <div class="result" id="result">
+            <h2>Your Personality Type:</h2>
+            <p id="resultText"></p>
+        </div>
+    </div>
+
+    <script>
+        function submitQuiz() {
+            let scoreA = 0, scoreB = 0, scoreC = 0;
+
+            // Get selected answers for each question
+            const q1Answer = document.querySelector('input[name="q1"]:checked');
+            const q2Answer = document.querySelector('input[name="q2"]:checked');
+            const q3Answer = document.querySelector('input[name="q3"]:checked');
+
+            // Count scores based on answers
+            if (q1Answer) {
+                if (q1Answer.value === "A") scoreA++;
+                if (q1Answer.value === "B") scoreB++;
+                if (q1Answer.value === "C") scoreC++;
+            }
+            if (q2Answer) {
+                if (q2Answer.value === "A") scoreA++;
+                if (q2Answer.value === "B") scoreB++;
+                if (q2Answer.value === "C") scoreC++;
+            }
+            if (q3Answer) {
+                if (q3Answer.value === "A") scoreA++;
+                if (q3Answer.value === "B") scoreB++;
+                if (q3Answer.value === "C") scoreC++;
+            }
+
+            // Show the result based on the highest score
+            let resultText = '';
+            if (scoreA > scoreB && scoreA > scoreC) {
+                resultText = 'You are an extrovert! You enjoy socializing and thrive in group environments.';
+            } else if (scoreB > scoreA && scoreB > scoreC) {
+                resultText = 'You are a thinker! You value logic and reasoning in decision-making.';
+            } else {
+                resultText = 'You are an introvert! You enjoy solitude and need alone time to recharge.';
+            }
+
+            // Hide the quiz and show the result
+            document.getElementById('quizForm').style.display = 'none';
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            document.getElementById('resultText').innerText = resultText;
+        }
+    </script>
+</body>
+</html>
